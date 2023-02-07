@@ -16,6 +16,5 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findByDateOfBirthBetween(String start, String end);
     @Query("SELECT p FROM Patient p JOIN p.admittedBy WHERE department = :dept ")
     List<Patient> findByDepartment(@Param("dept") String department);
-//    @Query("SELECT p FROM Patient p JOIN p.admittedBy WHERE status = :status ")
     List<Patient> findByAdmittedByStatus(Status status);
 }
