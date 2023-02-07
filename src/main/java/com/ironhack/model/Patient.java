@@ -3,6 +3,7 @@ package com.ironhack.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -10,6 +11,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "A patient needs a name")
     private String name;
     private String dateOfBirth;
     @ManyToOne

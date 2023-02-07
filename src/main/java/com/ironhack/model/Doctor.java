@@ -2,8 +2,10 @@ package com.ironhack.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.ironhack.enums.Department;
 import com.ironhack.enums.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -12,8 +14,10 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String department;
+    @NotBlank(message = "A doctor needs a name")
     private String name;
+    @Enumerated(EnumType.STRING)
+    private Department department;
     @Enumerated(EnumType.STRING)
     private Status status;
     @OneToMany(mappedBy = "admittedBy")
@@ -23,7 +27,7 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String department, String name, Status status, List<Patient> patients) {
+    public Doctor(Department department, String name, Status status, List<Patient> patients) {
         this.department = department;
         this.name = name;
         this.status = status;
@@ -38,11 +42,11 @@ public class Doctor {
         this.id = id;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
