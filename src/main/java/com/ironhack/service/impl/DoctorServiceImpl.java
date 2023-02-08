@@ -8,7 +8,9 @@ import com.ironhack.model.Doctor;
 import com.ironhack.repository.DoctorRepository;
 import com.ironhack.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,11 +39,21 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.save(doctor);
     }
     @Override
-    public void updateStatus(Long id, DoctorStatusDTO doctor) {
-
+    public void updateStatus(Long id, DoctorStatusDTO doctorStatusDTO) {
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(id);
+        if (!optionalDoctor.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
+        }
+        optionalDoctor.get().setStatus(doctorStatusDTO.getStatus());
+        doctorRepository.save(optionalDoctor.get());
     }
     @Override
-    public void updateDepartment(Long id, DoctorDepartmentDTO doctor) {
-
+    public void updateDepartment(Long id, DoctorDepartmentDTO doctorDepartmentDTO) {
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(id);
+        if (!optionalDoctor.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
+        }
+        optionalDoctor.get().setDepartment(doctorDepartmentDTO.getDepartment());
+        doctorRepository.save(optionalDoctor.get());
     }
 }
