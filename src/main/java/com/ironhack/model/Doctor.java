@@ -6,6 +6,7 @@ import com.ironhack.enums.Department;
 import com.ironhack.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotBlank(message = "ID can't be null, empty nor blank")
     private Long id;
-    @NotBlank(message = "A doctor needs a name")
+    @NotEmpty(message = "A doctor needs a name")
     private String name;
     @Enumerated(EnumType.STRING)
     private Department department;

@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 
 @Entity
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotBlank(message = "ID can't be null, empty nor blank")
     private Long id;
-    @NotBlank(message = "A patient needs a name")
+    @NotEmpty(message = "A patient needs a name")
     private String name;
     private String dateOfBirth;
     @ManyToOne
